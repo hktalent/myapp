@@ -1,6 +1,6 @@
 {
   "name": "myapp_51pwn",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "web app",
   "main": "index.js",
   "scripts": {

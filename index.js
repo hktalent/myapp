@@ -143,8 +143,8 @@ function myapp(option)
         if(bUseHttps)
         {
             if(!res.locals.nonce)res.locals.nonce = uuid.v4();
-            if(fnCheckUa(req,res))next();
-        }else next();
+        }
+        if(fnCheckUa(req,res))next();// else next();
     });
 
     // https://www.npmjs.com/package/express-session
