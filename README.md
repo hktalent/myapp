@@ -10,5 +10,5 @@ node test.js
 ```
 ## open web
 ```
-firefox http://127.0.0.1:3000
+firefox http://127.0.0.1:3000/index.html
 ```
