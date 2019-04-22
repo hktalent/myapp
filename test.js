@@ -1,5 +1,5 @@
 var myapp = require('myapp_51pwn'),
-    serverRootPath = __dirname,
+    serverRootPath = __dirname + "/",
     szSSP = serverRootPath + "static/";
 
 var oMyapp = new myapp({
