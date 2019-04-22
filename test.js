@@ -1,5 +1,5 @@
-var myapp = require('/mytools/myapp/index.js'),
-    serverRootPath = "/mytools/hktools_MTX/app/",
+var myapp = require('myapp_51pwn'),
+    serverRootPath = __dirname,
     szSSP = serverRootPath + "static/";
 
 var oMyapp = new myapp({
