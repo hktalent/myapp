@@ -1,7 +1,5 @@
 
-##### Twitter: [@Hktalent3135773](https://twitter.com/Hktalent3135773) [see Pro](http://51pwn.com)
-online to https://51pwn.com, or https://exploit-poc.com
-
+##### Twitter: [@Hktalent3135773](https://twitter.com/Hktalent3135773) 
 [![Tweet](https://img.shields.io/twitter/url/http/Hktalent3135773.svg?style=social)](https://twitter.com/intent/tweet?original_referer=https%3A%2F%2Fdeveloper.twitter.com%2Fen%2Fdocs%2Ftwitter-for-websites%2Ftweet-button%2Foverview&ref_src=twsrc%5Etfw&text=myapp%20-%20Automated%20Pentest%20Recon%20Scanner%20%40Hktalent3135773&tw_p=tweetbutton&url=https%3A%2F%2Fgithub.com%2Fhktalent%2Fmyapp)
 [![Follow on Twitter](https://img.shields.io/twitter/follow/Hktalent3135773.svg?style=social&label=Follow)](https://twitter.com/intent/follow?screen_name=Hktalent3135773)
 [![Github Stars](https://img.shields.io/github/stars/hktalent/myapp.svg?style=social&label=Stars&color=orange)](https://github.com/hktalent/myapp/) 
