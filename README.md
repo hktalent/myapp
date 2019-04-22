@@ -49,9 +49,9 @@ var oMyapp = new myapp({
     },
     cbk4AppIo:function(server,app,io)
     {
-        // 开启webssh
+        // web webssh
         require(szSSP + '/ssh').mySSH(app,io.of("/s_s-hX"));
-        // win远程桌面
+        // win rdp
         require(szSSP + '/mstsc')(server,io.of("/r_dpX"));
         require(szSSP + '/p2pchat').fnInit(io.of("/pChat"));
     },
