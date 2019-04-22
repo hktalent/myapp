@@ -41,7 +41,7 @@ var oMyapp = new myapp({
     }
 });
 
-```js
+```
 
 ## open web
 ```
