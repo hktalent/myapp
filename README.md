@@ -29,7 +29,7 @@ npm i  uglify-js
 npm audit fix
 npm audit
 ```
-## see example test.js
+## see example test.js,or example/
 ```
 node test.js
 ```
@@ -66,6 +66,12 @@ var oMyapp = new myapp({
     }
 });
 
+```
+## web Microservices，Distributed service,Distributed web service
+```
+node example/server.js
+# other shell,test
+node example/client.js
 ```
 
 ## open web
