@@ -1,6 +1,6 @@
 {
   "name": "myapp_51pwn",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "web app",
   "main": "index.js",
   "scripts": {
@@ -21,6 +21,7 @@
   },
   "homepage": "https://github.com/hktalent/myapp#readme",
   "dependencies": {
+    "child_process": "^1.0.2",
     "compression": "^1.7.4",
     "express": "^4.16.4",
     "express-limiter": "^1.6.1",
@@ -28,6 +29,7 @@
     "juicer": "^0.6.15",
     "node-uuid": "^1.4.8",
     "redis": "^2.8.0",
+    "socket.io-client": "^2.2.0",
     "socket.io-redis": "^5.2.0",
     "spdy": "^4.0.0",
     "uglify-js": "^3.5.6",

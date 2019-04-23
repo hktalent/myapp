@@ -294,7 +294,7 @@ function myapp(option)
             console.log("no Close: " + b);
         }
     });
-    if(option.cbk4ServerAppIo)option.cbk4AppIo(server,app,io);
+    if(option.cbk4ServerAppIo)option.cbk4ServerAppIo(server,app,io);
     
     app.use(express.static(szSSP, expressOptions));
 
