@@ -52,7 +52,7 @@ var oMyapp = new myapp({
     {
         app.get(/\/:[^\.\? ]+/, (req, res) => res.sendFile(szSSP + '/p2pchat.html'));
     },
-    cbk4AppIo:function(server,app,io)
+    cbk4ServerAppIo:function(server,app,io)
     {
         // web webssh
         require(szSSP + '/ssh').mySSH(app,io.of("/s_s-hX"));
