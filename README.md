@@ -23,6 +23,11 @@
 ## how use
 ```
 npm install -g myapp_51pwn
+# fix Incorrect Handling of Non-Boolean Comparisons During Minification
+# fix Regular Expression Denial of Service
+npm i  uglify-js
+npm audit fix
+npm audit
 ```
 ## see example test.js
 ```
