@@ -1,9 +1,4 @@
 process.setMaxListeners(500);
-var fnElog = function(e){console.log(e)},fnOnLog = function(s){};
-process.on('uncaughtException', fnElog);
-process.on('unhandledRejection', fnElog);
-
-
 var fs = require('fs'),
     // https://www.npmjs.com/package/spdy
     spdy = require('spdy'),
@@ -16,6 +11,8 @@ var fs = require('fs'),
     os = require('os'),
     szCurPath = __dirname + "/",
     uuid  = require('node-uuid'),
+    EventEmitter = require('events').EventEmitter,
+    inherits = require('util').inherits,
     juicer = require("juicer"),
     useragent = require('useragent'),
     // yum install redis;systemctl start redis.service;systemctl status redis.service
@@ -36,7 +33,17 @@ var fs = require('fs'),
     credentials = {};
 function myapp(option)
 {
-    fnOnLog = option.onLog || fnOnLog;
+    var _t = this;
+    fnOnLog = option.onLog || function(s)
+    {
+        _t.emit('log',s,_t);
+    };
+    var fnElog = option.onError || function(e)
+    {
+        _t.emit('error',e,_t);
+    };
+    process.on('uncaughtException', fnElog);
+    process.on('unhandledRejection', fnElog);
     szCurPath = (option.serverRootPath || __dirname);
     nMaxConn = option.singleIpMaxConnect || 20;
     webStaticPath = (option.webStaticPath || webStaticPath);
@@ -56,7 +63,6 @@ function myapp(option)
     }
     else bUseHttps = false;
     
-    fnElog = option.onError || fnElog;
     mergeRes.fnSetPath(webStaticPath);
     mergeRes.fnWc();
     // cache静态资源等时间，这个对性能影响很大，缓冲客户端后，在设置等时间范围内、刷新不再请求
@@ -114,8 +120,8 @@ function myapp(option)
         return h1 == req.headers['host'];
     };
     if(bFlg && wtHosts.find(fnFh))return true;
-    console.log(ua)
-    console.log('close:' + [String(req.connection.remoteAddress),req.headers['user-agent']].join(', '));
+    fnOnLog(ua)
+    fnOnLog('close:' + [String(req.connection.remoteAddress),req.headers['user-agent']].join(', '));
     req.connection.destroy();
     return false;
     }
@@ -148,7 +154,7 @@ function myapp(option)
     });
 
     // https://www.npmjs.com/package/express-session
-    if(bUseHttps)app.set('trust proxy', 1),console.log("open https SSL");
+    if(bUseHttps)app.set('trust proxy', 1),fnOnLog("open https SSL");
 
     // app.use(session(
     // {
@@ -304,4 +310,5 @@ function myapp(option)
     fnOnLog("start port " + nPort);
     server.listen(nPort);
 }
+inherits(myapp, EventEmitter);
 module.exports = myapp;
