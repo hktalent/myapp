@@ -100,3 +100,12 @@ Accept-Ranges: bytes
 Cache-Control: public, max-age=31536000
 Last-Modified: Mon, 22 Apr 2019 16:16:28 GMT
 ```
+### nginx.conf
+```
+server{
+add_header X-Frame-Options SAMEORIGIN;
+add_header X-Download-Options  noopen;
+add_header X-XSS-Protection "1;mode=block";
+# your other
+}
+```
