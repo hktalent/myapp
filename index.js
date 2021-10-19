@@ -13,12 +13,12 @@ var fs = require('fs'),
     uuid  = require('node-uuid'),
     EventEmitter = require('events').EventEmitter,
     inherits = require('util').inherits,
-    juicer = require("juicer"),
+    // juicer = require("juicer"),
     useragent = require('useragent'),
     // yum install redis;systemctl start redis.service;systemctl status redis.service
     // apt install redis;service redis-server start
     // brew install redis;brew services restart redis
-    client = require('redis').createClient(),
+    client = require('redis').createClient(),
     nMaxConn = 20,
     // https://github.com/helmetjs/csp, standalone module: helmet-csp
     helmet = require('helmet'),
@@ -58,7 +58,23 @@ function myapp(option)
         {
             credentials = {
                 "key": fs.readFileSync(key, 'utf8'),
-                "cert": fs.readFileSync(cert, 'utf8')}
+                "cert": fs.readFileSync(cert, 'utf8'),
+              // **optional** SPDY-specific options
+              spdy: {
+                protocols: ['h2','spdy/3.1', 'spdy/3', 'spdy/2','http/1.1', 'http/1.0'],
+                plain: false,
+                // **optional**
+                // Parse first incoming X_FORWARDED_FOR frame and put it to the
+                // headers of every request.
+                // NOTE: Use with care! This should not be used without some proxy that
+                // will *always* send X_FORWARDED_FOR
+                'x-forwarded-for': true,
+                connection: {
+                  windowSize: 1024 * 1024, // Server's window size
+                  // **optional** if true - server will send 3.1 frames on 3.0 *plain* spdy
+                  autoSpdy31: false
+                }
+              }}
         }
     }
     else bUseHttps = false;
@@ -127,11 +143,11 @@ function myapp(option)
     }
 
     // 避免js转义
-    juicer.set({
-        'script': false,
-        'strip': false,
-        'cache': false
-    });
+    // juicer.set({
+    //     'script': false,
+    //     'strip': false,
+    //     'cache': false
+    // });
 
     var reRes = /\/(js|css)\/(.*)$/;
     app.get(reRes,function(req,res,next)
