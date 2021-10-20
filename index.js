@@ -240,7 +240,7 @@ function myapp(option)
     if(bUseHttps)server = spdy.createServer(credentials,app);// require('https').createServer(credentials,app);
     else server = require('http').createServer(app);
     // 不能加，否则rdp不正常：, { serveClient: false }
-    var io = require('socket.io')(server, {
+    var io = new require('socket.io')(server, {
         // path:'/x',// 如果设置了需要修改相关静态的路径
         secure: bUseHttps,
         autoConnect:true});
