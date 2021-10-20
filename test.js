@@ -1,16 +1,17 @@
-var myapp = require('myapp_51pwn'),
+var myapp = require('.'),
     serverRootPath = __dirname + "/",
-    szSSP = serverRootPath + "static/";
+    szSSP = serverRootPath + "static/",
+    nPort = 3000;
 
 var oMyapp = new myapp({
     serverRootPath:serverRootPath,
     webStaticPath:szSSP,
     singleIpMaxConnect:30,
     useHttps:false,
-    port:3000,
+    port:nPort,
     // caKey:,
     // caCert:,
-    wtHosts:["51pwn.com","www.51pwn.com","exploit-poc.com","www.exploit-poc.com"],
+    wtHosts:["51pwn.com","www.51pwn.com","exploit-poc.com","www.exploit-poc.com",'127.0.0.1:' + nPort],
     redisAdapter:{ host: '127.0.0.1', port: 6379 },
     cbkApp:function(app)
     {
@@ -19,9 +20,9 @@ var oMyapp = new myapp({
     cbk4ServerAppIo:function(server,app,io)
     {
         // 开启webssh
-        require(szSSP + '/ssh').mySSH(app,io.of("/s_s-hX"));
+        // require(szSSP + '/ssh').mySSH(app,io.of("/s_s-hX"));
         // win远程桌面
-        require(szSSP + '/mstsc')(server,io.of("/r_dpX"));
+        // require(szSSP + '/mstsc')(server,io.of("/r_dpX"));
         /*///////////////////////
     https://github.com/vasanthv/hello
     https://github.com/peers/peerjs-server
@@ -30,7 +31,7 @@ var oMyapp = new myapp({
     https://github.com/voximplant/videochat/tree/master/WebApp
     https://github.com/webrtc/apprtc
     /////////////////*/
-        require(szSSP + '/p2pchat').fnInit(io.of("/pChat"));
+        // require(szSSP + '/p2pchat').fnInit(io.of("/pChat"));
     },
     onLog:function(s)
     {
