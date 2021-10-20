@@ -324,7 +324,7 @@ function myapp(option)
     })
     var nPort = option.port || 3000;
     fnOnLog("start port " + nPort);
-    server(nPort);
+    server.listen(nPort);
 }
 inherits(myapp, EventEmitter);
 module.exports = myapp;
