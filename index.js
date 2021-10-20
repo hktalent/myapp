@@ -240,7 +240,7 @@ function myapp(option)
     if(bUseHttps)server = spdy.createServer(credentials,app);// require('https').createServer(credentials,app);
     else server = require('http').createServer(app);
     // 不能加，否则rdp不正常：, { serveClient: false }
-    var io = require('socket.io').listen(server, {
+    var io = require('socket.io')(server, {
         // path:'/x',// 如果设置了需要修改相关静态的路径
         secure: bUseHttps,
         autoConnect:true});
@@ -324,7 +324,7 @@ function myapp(option)
     })
     var nPort = option.port || 3000;
     fnOnLog("start port " + nPort);
-    server.listen(nPort);
+    server(nPort);
 }
 inherits(myapp, EventEmitter);
 module.exports = myapp;
