@@ -22,6 +22,9 @@
 ```
 npm i child_process compression express express-limiter  helmet node-uuid redis socket.io-client spdy socket.io-redis spdy uglify-js useragent
 ```
+DeprecationWarning: Access to process.binding('http_parser') is deprecated.
+https://github.com/spdy-http2/node-spdy/issues/380
+
 
 ## how use
 ```
