@@ -19,6 +19,9 @@
 ![license](https://img.shields.io/github/license/mashape/apistatus.svg)
 
 # myapp_51pwn
+```
+npm i child_process compression express express-limiter  helmet node-uuid redis socket.io-client spdy socket.io-redis spdy uglify-js useragent
+```
 
 ## how use
 ```
