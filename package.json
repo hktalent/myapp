@@ -4,8 +4,7 @@
   "description": "web app",
   "main": "index.js",
   "scripts": {
-    "test": "node test.js"
-    // ,"postversion": "git commit -m 'update' . && git push && git push --tags && npm publish"
+    "test": "node test.js" // ,"postversion": "git commit -m 'update' . && git push && git push --tags && npm publish"
   },
   "repository": {
     "type": "git",
