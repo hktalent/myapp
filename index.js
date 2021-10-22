@@ -256,7 +256,11 @@ function myapp(option)
     // ]);
 
     // 集群下用同一个redis
-    io.adapter(redisAdapter(option.redisAdapter|| { host: 'localhost', port: 6379 }));
+    try{
+        io.adapter(redisAdapter(option.redisAdapter|| { host: 'localhost', port: 6379 }));
+    }catch(e){
+        io.adapter(redisAdapter({ host: 'docker.for.mac.localhost', port: 6379 }));
+    }
     var szSsh = [],aSsh = {},oNoRpt = {};
     var fnGetSsh = function(k)
     {
