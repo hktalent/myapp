@@ -24,6 +24,7 @@ npm i child_process compression express express-limiter  helmet node-uuid redis 
 ```
 DeprecationWarning: Access to process.binding('http_parser') is deprecated.
 https://github.com/spdy-http2/node-spdy/issues/380
+https://github.com/spdy-http2/http-deceiver/issues/6
 <!--
 ,"postversion": "git commit -m 'update' . && git push && git push --tags && npm publish"
 -->

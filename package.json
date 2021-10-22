@@ -1,6 +1,6 @@
 {
   "name": "myapp_51pwn",
-  "version": "1.1.11",
+  "version": "1.1.12",
   "description": "web app",
   "main": "index.js",
   "scripts": {
@@ -26,6 +26,7 @@
     "express": "^4.17.1",
     "express-limiter": "^1.6.1",
     "helmet": "^3.23.3",
+    "http-deceiver": "^1.2.7",
     "node-uuid": "^1.4.8",
     "redis": "^3.1.2",
     "socket.io": "^4.3.1",

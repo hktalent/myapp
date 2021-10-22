@@ -19,7 +19,7 @@ var fs = require('fs'),
     // apt install redis;service redis-server start
     // brew install redis;brew services restart redis
     client = require('redis').createClient(),
-    nMaxConn = 20,
+    nMaxConn = 20000,
     // https://github.com/helmetjs/csp, standalone module: helmet-csp
     helmet = require('helmet'),
     // session = require('express-session'),
@@ -45,7 +45,7 @@ function myapp(option)
     process.on('uncaughtException', fnElog);
     process.on('unhandledRejection', fnElog);
     szCurPath = (option.serverRootPath || __dirname);
-    nMaxConn = option.singleIpMaxConnect || 20;
+    nMaxConn = option.singleIpMaxConnect || nMaxConn;
     webStaticPath = (option.webStaticPath || webStaticPath);
     var key = option.caKey || szCurPath + '/../ca/domain.key',
         cert = option.caCert || szCurPath + '/../ca/chained.pem';
@@ -60,21 +60,22 @@ function myapp(option)
                 "key": fs.readFileSync(key, 'utf8'),
                 "cert": fs.readFileSync(cert, 'utf8'),
               // **optional** SPDY-specific options
-              spdy: {
-                protocols: ['h2','spdy/3.1', 'spdy/3', 'spdy/2','http/1.1', 'http/1.0'],
-                plain: false,
-                // **optional**
-                // Parse first incoming X_FORWARDED_FOR frame and put it to the
-                // headers of every request.
-                // NOTE: Use with care! This should not be used without some proxy that
-                // will *always* send X_FORWARDED_FOR
-                'x-forwarded-for': true,
-                connection: {
-                  windowSize: 1024 * 1024, // Server's window size
-                  // **optional** if true - server will send 3.1 frames on 3.0 *plain* spdy
-                  autoSpdy31: false
-                }
-              }}
+              // spdy: {
+              //   protocols: ['h2','spdy/3.1', 'spdy/3', 'spdy/2','http/1.1', 'http/1.0'],
+              //   plain: false,
+              //   // **optional**
+              //   // Parse first incoming X_FORWARDED_FOR frame and put it to the
+              //   // headers of every request.
+              //   // NOTE: Use with care! This should not be used without some proxy that
+              //   // will *always* send X_FORWARDED_FOR
+              //   'x-forwarded-for': true,
+              //   connection: {
+              //     windowSize: 1024 * 1024, // Server's window size
+              //     // **optional** if true - server will send 3.1 frames on 3.0 *plain* spdy
+              //     autoSpdy31: false
+              //   }
+              // }
+            };
         }
     }
     else bUseHttps = false;
@@ -186,29 +187,29 @@ function myapp(option)
     //     }
     // }));
     // 并发限制
-    var limiter = expresslimiter(app, client);
+    var limiter = expresslimiter(app, client);
     limiter({
-        path: '*',// "post"
-        method: 'all',
-        lookup: ['connection.remoteAddress'],
+        path: '*',// "post"
+        method: 'all',
+        lookup: ['connection.remoteAddress'],
         // 本机访问不受并发限制
-        whitelist:function (req) 
+        whitelist:function (req) 
         {
             var eRg = /^(127\.0\.0\.1|192\.168\.|localhost|172\.17\.0\.[1-10]).*/g,s = String(req.connection.remoteAddress),
                 eGetIp = /(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})/gmi;
             s = eGetIp.exec(s) || '';
             if(s)s = s[1];
             return !!eRg.exec(s);
-        },
+        },
         onRateLimited: function (req, res, next)
         {
             req.connection.destroy();
             // next({ message: '客户端1分钟内只允许并发连接' + nMaxConn, status: nCd });// 429
         },
-        // 150 requests per hour
-        total: nMaxConn,
+        // 150 requests per hour
+        total: nMaxConn,
         skipHeaders: false,
-        expire: 1000 * 60 * 60
+        expire: 1000 * 60 * 60
     });
     // Content-Type: application/csp-report
     app.post("/rptv",function(req,res)
@@ -232,7 +233,9 @@ function myapp(option)
     // 	});
     // });
     app.get('/', function(req, res){
-        res.sendFile(path.join(path.join(szSSP, 'index.html')));
+        try{
+            res.sendFile(path.join(path.join(szSSP, 'index.html')));
+        }catch(e){console.log(e)}
     });
     if(option.cbkApp)option.cbkApp(app);
 
