@@ -4,7 +4,7 @@
   "description": "web app",
   "main": "index.js",
   "scripts": {
-    "test": "node --trace-deprecation test.js"
+    "test": "docker run --rm  --name mywebapp-redis -d redis:6.2.6-alpine3.14 ; node --trace-deprecation test.js"
   },
   "repository": {
     "type": "git",

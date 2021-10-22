@@ -29,8 +29,10 @@ https://github.com/spdy-http2/http-deceiver/issues/6
 ,"postversion": "git commit -m 'update' . && git push && git push --tags && npm publish"
 -->
 
+now, node 8 spdy http2 is ok
 ## how use
 ```
+docker run --rm  --name mywebapp-redis -d redis:6.2.6-alpine3.14
 npm install -g myapp_51pwn
 # fix Incorrect Handling of Non-Boolean Comparisons During Minification
 # fix Regular Expression Denial of Service
@@ -40,7 +42,7 @@ npm audit
 ```
 ## see example test.js,or example/
 ```
-node test.js
+node --trace-deprecation test.js
 ```
 ```js
 var myapp = require('myapp_51pwn'),
@@ -56,7 +58,7 @@ var oMyapp = new myapp({
     // caKey:,
     // caCert:,
     wtHosts:["51pwn.com","www.51pwn.com","exploit-poc.com","www.exploit-poc.com"],
-    redisAdapter:{ host: '127.0.0.1', port: 6379 },
+    redisAdapter:{ host: 'docker.for.mac.localhost', port: 6379 },
     cbkApp:function(app)
     {
         app.get(/\/:[^\.\? ]+/, (req, res) => res.sendFile(szSSP + '/p2pchat.html'));
