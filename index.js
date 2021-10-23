@@ -19,7 +19,7 @@ var fs = require('fs'),
     // apt install redis;service redis-server start
     // brew install redis;brew services restart redis
     client = require('redis').createClient(),
-    nMaxConn = 20000,
+    nMaxConn = 100,
     // https://github.com/helmetjs/csp, standalone module: helmet-csp
     helmet = require('helmet'),
     // session = require('express-session'),
