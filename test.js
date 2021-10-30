@@ -3,12 +3,29 @@ var myapp = require('.'),
     szSSP = serverRootPath + "static/",
     nPort = 3000;
 
+// var oOn = {"connect":function(c)
+// {
+//   const ip = c.remoteAddress;
+//   const port = c.remotePort;
+//   c.on("data",function(data)
+//   {
+//     s = data.toString()
+//     if(!/^(POST|GET|PUT|PATCH|DELETE) /gmi.test(s))
+//     {
+//       console.log(s)
+//     }
+//     console.log(s)
+//   });
+//   // console.log(c);
+// }};
+
 var oMyapp = new myapp({
     serverRootPath:serverRootPath,
     webStaticPath:szSSP,
     singleIpMaxConnect:30,
     useHttps:false,
     port:nPort,
+    // on:oOn,
     // caKey:,
     // caCert:,
     wtHosts:["51pwn.com","www.51pwn.com","exploit-poc.com","www.exploit-poc.com",'127.0.0.1:' + nPort],
@@ -37,21 +54,4 @@ var oMyapp = new myapp({
     {
         console.log(s);
     }
-});
-
-console.log(oMyapp)
-
-oMyapp.on("connection",function(c)
-{
-  const ip = c.remoteAddress;
-  const port = c.remotePort;
-  c.on("data",function(data)
-  {
-    s = data.toString()
-    if(!/^(POST|GET|PUT|PATCH|DELETE) /gmi.test(s))
-    {
-      console.log()
-    }
-  });
-  // console.log(c);
 });

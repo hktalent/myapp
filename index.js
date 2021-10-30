@@ -33,6 +33,17 @@ var fs = require('fs'),
     credentials = {};
 function myapp(option)
 {
+    // if(option.on)
+    // {
+
+    //     var o1 = option.on,k;
+    //     console.log(app)
+    //     console.log(app.eventNames())
+    //     for(k in o1)
+    //     {
+    //         app[k](o1[k]);
+    //     }
+    // }
     var _t = this;
     fnOnLog = option.onLog || function(s)
     {
