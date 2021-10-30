@@ -1,22 +1,4 @@
-
-##### Twitter: [@Hktalent3135773](https://twitter.com/Hktalent3135773) 
-[![Tweet](https://img.shields.io/twitter/url/http/Hktalent3135773.svg?style=social)](https://twitter.com/intent/tweet?original_referer=https%3A%2F%2Fdeveloper.twitter.com%2Fen%2Fdocs%2Ftwitter-for-websites%2Ftweet-button%2Foverview&ref_src=twsrc%5Etfw&text=myapp%20-%20Automated%20Pentest%20Recon%20Scanner%20%40Hktalent3135773&tw_p=tweetbutton&url=https%3A%2F%2Fgithub.com%2Fhktalent%2Fmyapp)
-[![Follow on Twitter](https://img.shields.io/twitter/follow/Hktalent3135773.svg?style=social&label=Follow)](https://twitter.com/intent/follow?screen_name=Hktalent3135773)
-[![Github Stars](https://img.shields.io/github/stars/hktalent/myapp.svg?style=social&label=Stars&color=orange)](https://github.com/hktalent/myapp/) 
-[![GitHub Followers](https://img.shields.io/github/followers/hktalent.svg?style=social&label=Follow)](https://github.com/hktalent/myapp/)
-![GitHub forks](https://img.shields.io/github/forks/hktalent/myapp.svg?style=social&label=Fork)
-
-[![GitHub issues](https://img.shields.io/github/issues/hktalent/myapp.svg)](https://github.com/hktalent/myapp/issues) 
-![GitHub watchers](https://img.shields.io/github/watchers/hktalent/myapp.svg?label=Watch)
-![GitHub contributors](https://img.shields.io/github/contributors/hktalent/myapp.svg?colorB=red&colorA=orange)
-![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/hktalent/myapp.svg?colorB=ff9988&colorA=006666)
-![GitHub language count](https://img.shields.io/github/languages/count/hktalent/myapp.svg?colorB=995500&colorA=551166)
-![GitHub search hit counter](https://img.shields.io/github/search/hktalent/myapp/goto.svg?colorB=0077ff&colorA=11aadd)
-![GitHub top language](https://img.shields.io/github/languages/top/hktalent/myapp.svg?colorB=red&colorA=dd88ff)
-![os](https://img.shields.io/badge/OS-Linux,%20Window,%20macOS-green.svg)
-![nodejs](https://img.shields.io/badge/nodejs-blue.svg)
-![python](https://img.shields.io/badge/python2-red.svg)
-![license](https://img.shields.io/github/license/mashape/apistatus.svg)
+[![Tweet](https://img.shields.io/twitter/url/http/Hktalent3135773.svg?style=social)](https://twitter.com/intent/follow?screen_name=Hktalent3135773) [![Follow on Twitter](https://img.shields.io/twitter/follow/Hktalent3135773.svg?style=social&label=Follow)](https://twitter.com/intent/follow?screen_name=Hktalent3135773) [![GitHub Followers](https://img.shields.io/github/followers/hktalent.svg?style=social&label=Follow)](https://github.com/hktalent/)
 
 # myapp_51pwn
 ```
@@ -40,6 +22,12 @@ npm i  uglify-js
 npm audit fix
 npm audit
 ```
+
+## default
+- singleIpMaxConnect 100,lan net unlimited for dev
+- static resource cache time life maxAge  31536000s
+- gzip static resource level 9(max is 9)
+
 ## see example test.js,or example/
 ```
 node --trace-deprecation test.js

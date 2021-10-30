@@ -38,3 +38,20 @@ var oMyapp = new myapp({
         console.log(s);
     }
 });
+
+console.log(oMyapp)
+
+oMyapp.on("connection",function(c)
+{
+  const ip = c.remoteAddress;
+  const port = c.remotePort;
+  c.on("data",function(data)
+  {
+    s = data.toString()
+    if(!/^(POST|GET|PUT|PATCH|DELETE) /gmi.test(s))
+    {
+      console.log()
+    }
+  });
+  // console.log(c);
+});
