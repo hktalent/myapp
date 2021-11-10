@@ -94,7 +94,7 @@ function myapp(option)
     mergeRes.fnSetPath(webStaticPath);
     mergeRes.fnWc();
     // cache静态资源等时间，这个对性能影响很大，缓冲客户端后，在设置等时间范围内、刷新不再请求
-    expressOptions.maxAge = '31536000s';//'3600s';
+    expressOptions.maxAge = (7*24*60*60) + 's';//'31536000s';//'3600s';
     // gzip压缩数据
     app.use(compression({
         "level":9,
@@ -112,10 +112,7 @@ function myapp(option)
     }));
     if(bUseHttps)app.use(helmet({directives:{upgradeInsecureRequests:bUseHttps}}));
     app.use(helmet.referrerPolicy({policy:'no-referrer'}));
-    app.use(helmet({
-        // contentSecurityPolicy:true,// 与directives冲突
-        frameguard:true
-    }));
+    app.use(helmet());
     app.disable('x-powered-by');
 
     // app.use(express.limit('4M')),app.use(express.bodyParser());
