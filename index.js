@@ -127,28 +127,42 @@ function myapp(option)
     function fnCheckUa(req,res)
     {
         // if(true)return true;
-    // console.log(req.headers);
-    // console.log('IP:' + [String(req.connection.remoteAddress),req.headers['user-agent']].join(', '));
-    // 记录访问者信息
-    var obj = {
-        "ip":/(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})/g.exec(String(req.connection.remoteAddress))[1],
-        "user-agent": req.headers['user-agent'],
-        href:req.href
-    };
-    fs.appendFile("db/" + obj.ip,JSON.stringify(obj),function(){});
-    
-    var ua = useragent.is(req.headers['user-agent'] || ""), 
-        bFlg = req.headers['user-agent'] == 'acme-tiny' || ua.opera || ua.webkit || ua.ie || ua.chrome || ua.safari || ua.mobile_safari || ua.firefox || ua.mozilla || ua.android;
+        // console.log(req.headers);
+        // console.log('IP:' + [String(req.connection.remoteAddress),req.headers['user-agent']].join(', '));
+        // 记录访问者信息
+        var obj = {
+            "ip":/(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})/g.exec(String(req.connection.remoteAddress))[1],
+            "user-agent": req.headers['user-agent'],
+            href:req.href
+        };
+        fs.appendFile("db/" + obj.ip,JSON.stringify(obj),function(){});
+        
+        var ua = useragent.is(req.headers['user-agent'] || ""), 
+            bFlg = req.headers['user-agent'] == 'acme-tiny' || ua.opera || ua.webkit || ua.ie || ua.chrome || ua.safari || ua.mobile_safari || ua.firefox || ua.mozilla || ua.android;
 
-    var fnFh = function(h1)
-    {
-        return h1 == req.headers['host'];
-    };
-    if(bFlg && wtHosts.find(fnFh))return true;
-    fnOnLog(ua)
-    fnOnLog('close:' + [String(req.connection.remoteAddress),req.headers['user-agent']].join(', '));
-    req.connection.destroy();
-    return false;
+        var szOrigin = req.headers['origin'],fnCls=function(szKey){
+            fnOnLog(ua);
+            fnOnLog('close:' + [String(req.connection.remoteAddress),req.headers[szKey]].join(', '));
+            req.connection.destroy();
+            return false;
+        };
+
+        if(szOrigin)
+        {
+            szOrigin=szOrigin.split(/http[s]?:\/\//);
+            if(2 != szOrigin.length)
+                return fnCls('origin');
+            szOrigin = szOrigin[1].split(/[\/:#\?;]/)[0];
+            if(bFlg && !wtHosts.find(function(s0){
+                return s0 == szOrigin;
+            }))return fnCls('origin');
+        }
+        var fnFh = function(h1)
+        {
+            return h1 == req.headers['host'];
+        };
+        if(bFlg && wtHosts.find(fnFh))return true;
+        return fnCls('user-agent');
     }
 
     // 避免js转义
