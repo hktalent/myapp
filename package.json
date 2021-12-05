@@ -1,6 +1,6 @@
 {
   "name": "myapp_51pwn",
-  "version": "1.1.19",
+  "version": "1.1.20",
   "description": "web app",
   "main": "index.js",
   "scripts": {
@@ -25,15 +25,15 @@
     "compression": "^1.7.4",
     "express": "^4.17.1",
     "express-limiter": "^1.6.1",
-    "helmet": "^3.23.3",
+    "helmet": "^4.6.0",
     "http-deceiver": "^1.2.7",
     "node-uuid": "^1.4.8",
-    "redis": "^3.1.2",
-    "socket.io": "^4.3.1",
-    "socket.io-client": "^2.4.0",
+    "redis": "^4.0.0",
+    "socket.io": "^4.4.0",
+    "socket.io-client": "^4.4.0",
     "socket.io-redis": "^5.4.0",
     "spdy": "^4.0.2",
-    "uglify-js": "^3.14.2",
+    "uglify-js": "^3.14.4",
     "useragent": "^2.3.0"
   }
 }

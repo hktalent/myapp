@@ -6,16 +6,16 @@ function Decoder(buffer) {
 }
 
 Decoder.prototype.array = function (length) {
-  var value = new Array(length);
-  for (var i = 0; i < length; i++) {
+  const value = new Array(length);
+  for (let i = 0; i < length; i++) {
     value[i] = this.parse();
   }
   return value;
 };
 
 Decoder.prototype.map = function (length) {
-  var key = '', value = {};
-  for (var i = 0; i < length; i++) {
+  let key = '', value = {};
+  for (let i = 0; i < length; i++) {
     key = this.parse();
     value[key] = this.parse();
   }
@@ -23,21 +23,21 @@ Decoder.prototype.map = function (length) {
 };
 
 Decoder.prototype.str = function (length) {
-  var value = this.buffer.toString('utf8', this.offset, this.offset + length);
+  const value = this.buffer.toString('utf8', this.offset, this.offset + length);
   this.offset += length;
   return value;
 };
 
 Decoder.prototype.bin = function (length) {
-  var value = this.buffer.slice(this.offset, this.offset + length);
+  const value = this.buffer.slice(this.offset, this.offset + length);
   this.offset += length;
   return value;
 };
 
 Decoder.prototype.arraybuffer = function (length) {
-  var buffer = new ArrayBuffer(length);
-  var view = new Uint8Array(buffer);
-  for (var j = 0; j < length; j++) {
+  const buffer = new ArrayBuffer(length);
+  const view = new Uint8Array(buffer);
+  for (let j = 0; j < length; j++) {
     view[j] = this.buffer[this.offset + j];
   }
   this.offset += length;
@@ -45,8 +45,8 @@ Decoder.prototype.arraybuffer = function (length) {
 };
 
 Decoder.prototype.parse = function () {
-  var prefix = this.buffer[this.offset++];
-  var value, length = 0, type = 0, hi = 0, lo = 0;
+  const prefix = this.buffer[this.offset++];
+  let value, length = 0, type = 0, hi = 0, lo = 0;
 
   if (prefix < 0xc0) {
     // positive fixint
@@ -240,8 +240,8 @@ Decoder.prototype.parse = function () {
 };
 
 function decode(buffer) {
-  var decoder = new Decoder(buffer);
-  var value = decoder.parse();
+  const decoder = new Decoder(buffer);
+  const value = decoder.parse();
   if (decoder.offset !== buffer.length) {
     throw new Error((buffer.length - decoder.offset) + ' trailing bytes');
   }

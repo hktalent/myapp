@@ -76,7 +76,7 @@ function _encode(bytes, defers, value) {
     } else {
       throw new Error('String too long');
     }
-    defers.push({ str: value, length: length, offset: bytes.length });
+    defers.push({ _str: value, _length: length, _offset: bytes.length });
     return size + length;
   }
   if (type === 'number') {
@@ -85,7 +85,7 @@ function _encode(bytes, defers, value) {
     // float 64
     if (Math.floor(value) !== value || !isFinite(value)) {
       bytes.push(0xcb);
-      defers.push({ float: value, length: 8, offset: bytes.length });
+      defers.push({ _float: value, _length: 8, _offset: bytes.length });
       return 9;
     }
 
@@ -205,7 +205,7 @@ function _encode(bytes, defers, value) {
       } else {
         throw new Error('Buffer too large');
       }
-      defers.push({ bin: value, length: length, offset: bytes.length });
+      defers.push({ _bin: value, _length: length, _offset: bytes.length });
       return size + length;
     }
 
@@ -273,7 +273,7 @@ function encode(value) {
   var deferWritten = 0;
   var nextOffset = -1;
   if (defers.length > 0) {
-    nextOffset = defers[0].offset;
+    nextOffset = defers[0]._offset;
   }
 
   var defer, deferLength = 0, offset = 0;
@@ -281,22 +281,22 @@ function encode(value) {
     view.setUint8(deferWritten + i, bytes[i]);
     if (i + 1 !== nextOffset) { continue; }
     defer = defers[deferIndex];
-    deferLength = defer.length;
+    deferLength = defer._length;
     offset = deferWritten + nextOffset;
-    if (defer.bin) {
-      var bin = new Uint8Array(defer.bin);
+    if (defer._bin) {
+      var bin = new Uint8Array(defer._bin);
       for (var j = 0; j < deferLength; j++) {
         view.setUint8(offset + j, bin[j]);
       }
-    } else if (defer.str) {
-      utf8Write(view, offset, defer.str);
-    } else if (defer.float !== undefined) {
-      view.setFloat64(offset, defer.float);
+    } else if (defer._str) {
+      utf8Write(view, offset, defer._str);
+    } else if (defer._float !== undefined) {
+      view.setFloat64(offset, defer._float);
     }
     deferIndex++;
     deferWritten += deferLength;
     if (defers[deferIndex]) {
-      nextOffset = defers[deferIndex].offset;
+      nextOffset = defers[deferIndex]._offset;
     }
   }
   return buf;

@@ -1,3 +1,13 @@
+<a name="2.1.3"></a>
+## [2.1.3](https://github.com/darrachequesne/notepack/compare/2.1.2...2.1.3) (2018-05-14)
+
+
+### Bug Fixes
+
+* **browser:** fix utf-8 decoder ([#16](https://github.com/darrachequesne/notepack/issues/16)) ([abbf3a5](https://github.com/darrachequesne/notepack/commit/abbf3a5))
+
+
+
 <a name="2.1.2"></a>
 ## [2.1.2](https://github.com/darrachequesne/notepack/compare/2.1.1...2.1.2) (2017-08-23)
 
