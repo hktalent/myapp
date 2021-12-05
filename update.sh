@@ -1,3 +1,4 @@
+#  wget -c https://nodejs.org/download/release/v14.17.6/node-v14.17.6.pkg
 npx npm-check-updates -u
 npm install
 npm --no-git-tag-version version patch

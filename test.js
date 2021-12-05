@@ -29,7 +29,7 @@ var oMyapp = new myapp({
     // caKey:,
     // caCert:,
     wtHosts:["51pwn.com","www.51pwn.com","exploit-poc.com","www.exploit-poc.com",'127.0.0.1:' + nPort],
-    redisAdapter:{ host: 'docker.for.mac.localhost', port: 6379 },
+    redisAdapter:{ host: '127.0.0.1', port: 6379 },
     cbkApp:function(app)
     {
         app.get(/\/:[^\.\? ]+/, (req, res) => res.sendFile(szSSP + '/p2pchat.html'));

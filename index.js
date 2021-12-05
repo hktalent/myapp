@@ -12,7 +12,6 @@ var fs = require('fs'),
     szCurPath = __dirname + "/",
     uuid  = require('node-uuid'),
     EventEmitter = require('events').EventEmitter,
-    inherits = require('util').inherits,
     // juicer = require("juicer"),
     useragent = require('useragent'),
     // yum install redis;systemctl start redis.service;systemctl status redis.service
@@ -31,8 +30,16 @@ var fs = require('fs'),
     wtHosts = [],
     redisAdapter = require('socket.io-redis'),
     credentials = {};
+
+// fix: UnhandledPromiseRejectionWarning: Error: The client is closed  Commander._RedisClient_sendCommand (node_modules/@node-redis/client/dist/lib/client/index.js:387:31)
+(async () => {
+    client.on('error', (err) => console.log('Redis Client Error', err));
+    await client.connect();
+})();
+
 function myapp(option)
 {
+    Object.setPrototypeOf(this, EventEmitter.prototype)
     // if(option.on)
     // {
 
@@ -53,8 +60,7 @@ function myapp(option)
     {
         _t.emit('error',e,_t);
     };
-    process.on('uncaughtException', fnElog);
-    process.on('unhandledRejection', fnElog);
+    // process.on('uncaughtException', fnElog);process.on('unhandledRejection', fnElog);
     szCurPath = (option.serverRootPath || __dirname);
     nMaxConn = option.singleIpMaxConnect || nMaxConn;
     webStaticPath = (option.webStaticPath || webStaticPath);
@@ -357,5 +363,6 @@ function myapp(option)
     fnOnLog("start port " + nPort);
     server.listen(nPort);
 }
-inherits(myapp, EventEmitter);
+// myapp = Object.setPrototypeOf(myapp,EventEmitter.prototype)
 module.exports = myapp;
+
