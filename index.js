@@ -1,7 +1,5 @@
 process.setMaxListeners(500);
 var fs = require('fs'),
-    // https://www.npmjs.com/package/spdy
-    spdy = require('spdy'),
     express = require('express'),
     app = express(),
     expresslimiter = require('express-limiter'),
@@ -69,33 +67,7 @@ function myapp(option)
     bUseHttps = option.useHttps || false;
 
     wtHosts = option.wtHosts || ["127.0.0.1"];
-    if(option.useHttps && fs.existsSync(key) && fs.existsSync(cert))
-    {
-        if(bUseHttps = true)
-        {
-            credentials = {
-                "key": fs.readFileSync(key, 'utf8'),
-                "cert": fs.readFileSync(cert, 'utf8'),
-              // **optional** SPDY-specific options
-              spdy: {
-                protocols: ['h2','spdy/3.1', 'spdy/3', 'spdy/2','http/1.1', 'http/1.0'],
-                plain: false,
-                // **optional**
-                // Parse first incoming X_FORWARDED_FOR frame and put it to the
-                // headers of every request.
-                // NOTE: Use with care! This should not be used without some proxy that
-                // will *always* send X_FORWARDED_FOR
-                'x-forwarded-for': true,
-                connection: {
-                  windowSize: 1024 * 1024, // Server's window size
-                  // **optional** if true - server will send 3.1 frames on 3.0 *plain* spdy
-                  autoSpdy31: false
-                }
-              }
-            };
-        }
-    }
-    else bUseHttps = false;
+    bUseHttps = false;
     
     mergeRes.fnSetPath(webStaticPath);
     mergeRes.fnWc();
@@ -269,8 +241,7 @@ function myapp(option)
     if(option.cbkApp)option.cbkApp(app);
 
     var server = null;
-    if(bUseHttps)server = spdy.createServer(credentials,app);// require('https').createServer(credentials,app);
-    else server = require('http').createServer(app);
+    server = require('http').createServer(app);
     // 不能加，否则rdp不正常：, { serveClient: false }
     var io = new require('socket.io')(server, {
         // path:'/x',// 如果设置了需要修改相关静态的路径

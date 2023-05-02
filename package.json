@@ -33,7 +33,6 @@
     "socket.io": "^4.4.0",
     "socket.io-client": "^4.4.0",
     "socket.io-redis": "^5.4.0",
-    "spdy": "^4.0.2",
     "uglify-js": "^3.14.4",
     "useragent": "^2.3.0"
   }
